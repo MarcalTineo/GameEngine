@@ -1,7 +1,7 @@
 namespace SyzygyEngine;
 
 
-public class GameObject : Obj
+public class GameObject : TaggableObject
 {
 
     //variables
@@ -46,6 +46,11 @@ public class GameObject : Obj
     /// <returns>The GameObject. Null if the object is not found.</returns>
     public static GameObject Find(string name)
     {
+        foreach (GameObject item in Engine.Instance.Scene.sceneActors)
+        {
+            if (item.Name == name)
+                return item;
+        }
         return null;
     }
 
@@ -55,25 +60,42 @@ public class GameObject : Obj
     /// <returns>The GameObject. Null if the object is not found.</returns>
     public static GameObject Find(int id)
     {
+        foreach (GameObject item in Engine.Instance.Scene.sceneActors)
+        {
+            if (item.Id == id)
+                return item;
+        }
         return null;
     }
 
     /// <summary>
     /// Finds all gameObjects with the specified name.
     /// </summary>
-    /// <returns>A list containg all gameObjects. Null if not found.</returns>
-    public static List<GameObject> FindAll(string name)
+    /// <returns>A list containg all gameObjects. Empty list if not found any.</returns>
+    public static List<GameObject> FindAllName(string name)
     {
-        return null;
+        List<GameObject> list = new List<GameObject>();
+        foreach (GameObject item in Engine.Instance.Scene.sceneActors)
+        {
+            if (item.Name == name)
+                list.Add(item);
+        }
+        return list;
     }
 
     /// <summary>
     /// Finds all objects with the specified tag.
     /// </summary>
     /// <returns>A list containg all gameObjects. Null if not found.</returns>
-    public static List<GameObject> FindAll(/*tag*/)
+    public static List<GameObject> FindAllTag(string tag)
     {
-        return null;
+        List<GameObject> list = new List<GameObject>();
+        foreach (GameObject item in Engine.Instance.Scene.sceneActors)
+        {
+            if (item.CompareTag(tag))
+                list.Add(item);
+        }
+        return list;
     }
 
 }

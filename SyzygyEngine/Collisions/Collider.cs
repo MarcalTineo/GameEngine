@@ -4,10 +4,12 @@ public class Collider
 {
     private GameObject gameObject;
 
-    public GameObject GameObject { get => gameObject; set => gameObject = value; }
+    public GameObject GameObject { get => gameObject; }
 
     public Collider(GameObject gameObject)
     {
         this.gameObject = gameObject;
     }
+
+    public virtual Collider CheckCollisions() { return null; }
 }
